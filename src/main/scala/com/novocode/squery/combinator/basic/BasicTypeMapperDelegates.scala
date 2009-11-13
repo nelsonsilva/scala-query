@@ -140,7 +140,7 @@ object BasicTypeMapperDelegates {
     def setOption(v: Option[Timestamp], p: PositionedParameters) = p.setTimestampOption(v)
     def nextValue(r: PositionedResult) = r.nextTimestamp
     def updateValue(v: Timestamp, r: PositionedResult) = r.updateTimestamp(v)
-    override def valueToSQLLiteral(value: Timestamp) = "{ts '"+value.toString+"'}"
+    override def valueToSQLLiteral(value: Timestamp) = if(value.getTime() == 0) value.toString else "{ts '"+value.toString+"'}"
   }
 
   class NullTypeMapperDelegate extends TypeMapperDelegate[Null] {
